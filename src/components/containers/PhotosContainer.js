@@ -5,22 +5,23 @@ import PhotosGrid from '../scenes/PhotosGrid';
 const PhotosContainer = (props) => {
   const {navigation} = props;
   const dispatch = useDispatch();
-  const photos = useSelector((state) => state.photos.photos);
+  const {photos, loading} = useSelector((state) => state.photos);
 
   useEffect(() => {
     dispatch({type: 'PHOTOS_REQUESTED'});
   }, []);
 
   const onPhotoThumbnailPress = (title, url) => {
-    dispatch({type: 'SET_DETAILS_DATA', data: {title, url}});
-    navigation.navigate('Photo Details');
+    navigation.navigate('Photo Details', {
+      title,
+      url,
+    });
   };
 
   return (
     <PhotosGrid
-      navigation={navigation}
       photos={photos}
-      dispatch={dispatch}
+      loading={loading}
       onPhotoThumbnailPress={onPhotoThumbnailPress}
     />
   );

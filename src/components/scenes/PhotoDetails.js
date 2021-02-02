@@ -2,7 +2,8 @@ import React from 'react';
 import {StyleSheet, View, Image, Text, SafeAreaView} from 'react-native';
 
 const PhotoDetails = (props) => {
-  const {title, url} = props;
+  const {route} = props;
+  const { title, url } = route.params
   return (
     <SafeAreaView style={styles.container}>
       <Text>{title}</Text>

@@ -1,13 +1,13 @@
 import React from 'react';
-import {StyleSheet, View, Image, Text} from 'react-native';
+import {StyleSheet, View, Image, Text, SafeAreaView} from 'react-native';
 
 const PhotoDetails = (props) => {
   const {title, url} = props;
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text>{title}</Text>
-      <Image style={styles.imageThumbnail} source={{uri: url}} />
-    </View>
+      <Image style={styles.image} source={{uri: url}} />
+    </SafeAreaView>
   );
 };
 
@@ -17,11 +17,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    margin: 1,
+    padding: 10,
   },
-  imageThumbnail: {
+  image: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 100,
+    resizeMode: 'contain',
+    width: '100%',
+    height: '100%',
   },
 });

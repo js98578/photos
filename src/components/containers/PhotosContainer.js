@@ -13,7 +13,7 @@ const PhotosContainer = (props) => {
 
   const onPhotoThumbnailPress = (title, url) => {
     dispatch({type: 'SET_DETAILS_DATA', data: {title, url}});
-    navigation.navigate('PhotoDetails');
+    navigation.navigate('Photo Details');
   };
 
   return (

@@ -1,11 +1,12 @@
 import React from 'react';
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, View, Image, Text} from 'react-native';
 
 const PhotoDetails = (props) => {
-  const {thumbnailUrl} = props;
+  const {title, url} = props;
   return (
     <View style={styles.container}>
-      <Image style={styles.imageThumbnail} source={{uri: thumbnailUrl}} />
+      <Text>{title}</Text>
+      <Image style={styles.imageThumbnail} source={{uri: url}} />
     </View>
   );
 };

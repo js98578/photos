@@ -1,4 +1,11 @@
-import {takeEvery, call, put, delay, race} from 'redux-saga/effects';
+import {
+  takeEvery,
+  call,
+  put,
+  delay,
+  race,
+  takeLeading,
+} from 'redux-saga/effects';
 import {getPhotos} from '../api/requests';
 
 export default function* rootWatcherSaga() {

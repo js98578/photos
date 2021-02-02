@@ -1,11 +1,13 @@
 import React from 'react';
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
 
 const PhotoThumbnail = (props) => {
-  const {thumbnailUrl} = props;
+  const {thumbnailUrl, onPress} = props;
   return (
     <View style={styles.container}>
-      <Image style={styles.imageThumbnail} source={{uri: thumbnailUrl}} />
+      <TouchableOpacity onPress={onPress}>
+        <Image style={styles.imageThumbnail} source={{uri: thumbnailUrl}} />
+      </TouchableOpacity>
     </View>
   );
 };

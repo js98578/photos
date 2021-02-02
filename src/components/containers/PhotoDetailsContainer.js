@@ -1,26 +1,10 @@
 import React from 'react';
-import {StyleSheet, View, Image} from 'react-native';
+import { useSelector } from 'react-redux';
+import PhotoDetails from '../scenes/PhotoDetails';
 
 const PhotoDetailsContainer = (props) => {
-  const {thumbnailUrl} = props;
-  return (
-    <View style={styles.container}>
-      <Image style={styles.imageThumbnail} source={{uri: thumbnailUrl}} />
-    </View>
-  );
+  const {title, url} = useSelector((state) => state.details);
+  return <PhotoDetails title={title} url={url} />;
 };
 
 export default PhotoDetailsContainer;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    margin: 1,
-  },
-  imageThumbnail: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 100,
-  },
-});

@@ -1,6 +1,6 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, StatusBar, FlatList} from 'react-native';
-import PhotoThumbnail from './PhotoThumbnail';
+import PhotoThumbnail from '../PhotoThumbnail';
 
 const PhotosGrid = (props) => {
   const {photos, onPhotoThumbnailPress} = props;
@@ -13,7 +13,7 @@ const PhotosGrid = (props) => {
           data={photos}
           renderItem={({item}) => (
             <PhotoThumbnail
-              onPress={() => onPhotoThumbnailPress()}
+              onPress={() => onPhotoThumbnailPress(item.title, item.url)}
               thumbnailUrl={item.thumbnailUrl}
             />
           )}

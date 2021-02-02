@@ -2,19 +2,28 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import PhotosGrid from '../scenes/PhotosGrid';
 
-const PhotosContainer = () => {
+const PhotosContainer = (props) => {
+  const {navigation} = props;
   const dispatch = useDispatch();
   const photos = useSelector((state) => state.photos.photos);
-
-  const onPhotoThumbnailPress = () => {
-
-  };
 
   useEffect(() => {
     dispatch({type: 'PHOTOS_REQUESTED'});
   }, []);
 
-  return <PhotosGrid photos={photos} />;
+  const onPhotoThumbnailPress = (title, url) => {
+    dispatch({type: 'SET_DETAILS_DATA', data: {title, url}});
+    navigation.navigate('PhotoDetails');
+  };
+
+  return (
+    <PhotosGrid
+      navigation={navigation}
+      photos={photos}
+      dispatch={dispatch}
+      onPhotoThumbnailPress={onPhotoThumbnailPress}
+    />
+  );
 };
 
 export default PhotosContainer;

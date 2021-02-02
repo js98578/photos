@@ -1,20 +1,25 @@
-import {takeEvery, call, put} from 'redux-saga/effects';
+import {takeEvery, call, put, delay, race} from 'redux-saga/effects';
+import {getPhotos} from '../api/requests';
 
 export default function* rootWatcherSaga() {
-  yield takeEvery('DATA_REQUESTED', workerSaga);
+  yield takeEvery('PHOTOS_REQUESTED', photosWorkerSaga);
 }
 
-function* workerSaga() {
+function* photosWorkerSaga() {
   try {
-    const payload = yield call(getData);
-    yield put({type: 'DATA_LOADED', payload});
-  } catch (e) {
-    yield put({type: 'API_ERRORED', payload: e});
-  }
-}
+    yield put({type: 'PHOTOS_START'});
 
-function getData() {
-  return fetch('https://jsonplaceholder.typicode.com/photos').then((response) =>
-    response.json(),
-  );
+    const {payload, timeout} = yield race({
+      payload: call(getPhotos),
+      timeout: delay(10000),
+    });
+
+    if (timeout) {
+      yield put({type: 'ERROR'});
+    }
+
+    if (payload) yield put({type: 'PHOTOS_LOADED', data: {photos: payload}});
+  } catch (e) {
+    yield put({type: 'ERROR'});
+  }
 }

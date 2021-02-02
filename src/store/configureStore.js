@@ -1,16 +1,20 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
-import photoReducer from '../reducers/photoReducer';
-import createSagaMiddleware from 'redux-saga'
+import photosReducer from '../reducers/photosReducer';
+import createSagaMiddleware from 'redux-saga';
 import rootWatcherSaga from '../sagas/photosSaga';
+import errorReducer from '../reducers/errorReducer';
 
-const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware();
 
-const rootReducer = combineReducers({photos: photoReducer});
+const rootReducer = combineReducers({
+  photos: photosReducer,
+  error: errorReducer,
+});
 
 const configureStore = () => {
-  return createStore(rootReducer, applyMiddleware(sagaMiddleware));
+  const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+  sagaMiddleware.run(rootWatcherSaga);
+  return store;
 };
-
-sagaMiddleware.run(rootWatcherSaga)
 
 export default configureStore;

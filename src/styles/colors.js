@@ -1,5 +1,5 @@
 export const blue = 'blue';
-export const grey = 'grey';
+export const white = 'white';
 
-export const photoGridBackground = grey;
+export const photoGridBackground = white;
 export const loadingIndicator = blue;

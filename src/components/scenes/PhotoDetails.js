@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {
   StyleSheet,
-  View,
   Image,
   Text,
   SafeAreaView,
@@ -25,8 +24,7 @@ const PhotoDetails = (props) => {
         style={styles.image}
         source={{uri: url}}
         onLoadStart={() => setLoading(true)}
-        onError={() => setLoading(false)}
-        onLoad={() => setLoading(false)}
+        onLoadEnd={() => setLoading(false)}
       />
     </SafeAreaView>
   );

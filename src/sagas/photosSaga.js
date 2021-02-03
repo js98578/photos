@@ -29,10 +29,10 @@ function* photosLoadMoreWorkerSaga(action) {
   try {
     yield put({type: 'PHOTOS_LOAD_MORE_START'});
 
-    const {page, photos} = yield select((state) => {console.log(state); return state.photos});
+    const {page, photos} = yield select((state) => state.photos);
 
     const payload = yield call(fetchPhotos, page);
-    console.log(page, photos)
+
     const newPhotos = [...photos, ...payload];
     yield put({
       type: 'PHOTOS_LOADED',
@@ -40,7 +40,6 @@ function* photosLoadMoreWorkerSaga(action) {
     });
   } catch (e) {
     console.log('photos loading more error: ', e.message);
-    yield put({type: 'PHOTOS_LOAD_MORE_ERROR'});
     yield put({type: 'ERROR'});
   }
 }
@@ -52,7 +51,7 @@ function* fetchPhotos(page) {
   });
 
   if (timeout) {
-    throw new Error();
+    throw new Error('Timeout error');
   }
   return payload;
 }

@@ -1,13 +1,33 @@
-import React from 'react';
-import {StyleSheet, View, Image, Text, SafeAreaView} from 'react-native';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  SafeAreaView,
+  ActivityIndicator,
+} from 'react-native';
+import {Colors} from '../../styles';
 
 const PhotoDetails = (props) => {
   const {route} = props;
-  const { title, url } = route.params
+  const {title, url} = route.params;
+
+  const [loading, setLoading] = useState(false);
+
   return (
     <SafeAreaView style={styles.container}>
       <Text>{title}</Text>
-      <Image style={styles.image} source={{uri: url}} />
+      {loading && (
+        <ActivityIndicator size="small" color={Colors.loadingIndicator} />
+      )}
+      <Image
+        style={styles.image}
+        source={{uri: url}}
+        onLoadStart={() => setLoading(true)}
+        onError={() => setLoading(false)}
+        onLoad={() => setLoading(false)}
+      />
     </SafeAreaView>
   );
 };

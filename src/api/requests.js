@@ -1,5 +1,7 @@
-import {apiUrl} from './constants';
+import {apiUrl, itemsOnPage} from './constants';
 
-export const getPhotos = () => {
-  return fetch(apiUrl).then((response) => response.json());
+export const getPhotos = (page) => {
+  return fetch(
+    `${apiUrl}photos?_page=${page}&_limit=${itemsOnPage}`,
+  ).then((response) => response.json());
 };

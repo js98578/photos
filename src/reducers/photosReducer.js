@@ -1,9 +1,14 @@
-const initialState = {};
+const initialState = {
+  loading: false,
+  page: 1,
+  photos: [],
+};
 
 const photosReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'PHOTOS_START': {
+    case 'PHOTOS_LOAD_START': {
       return {
+        ...state,
         loading: true,
       };
     }
@@ -11,7 +16,11 @@ const photosReducer = (state = initialState, action) => {
       return {
         loading: false,
         photos: action.data.photos,
+        page: action.data.page,
       };
+    }
+    case 'PHOTOS_LOAD_ERROR': {
+      return initialState;
     }
     default: {
       return state;

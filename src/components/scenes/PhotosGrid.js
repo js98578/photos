@@ -5,17 +5,17 @@ import {
   StatusBar,
   FlatList,
   ActivityIndicator,
-  View,
 } from 'react-native';
+import {Colors} from '../../styles';
 import PhotoThumbnail from '../PhotoThumbnail';
 
 const PhotosGrid = (props) => {
-  const {photos, onPhotoThumbnailPress, loading} = props;
+  const {photos, onPhotoThumbnailPress, onListEnd, loading} = props;
 
   if (loading) {
     return (
-      <SafeAreaView style={styles.loading}>
-        <ActivityIndicator size="large" color="blue" />
+      <SafeAreaView style={[styles.baseContainer, styles.loadingContainer]}>
+        <ActivityIndicator size="large" color={Colors.loadingIndicator} />
       </SafeAreaView>
     );
   }
@@ -23,7 +23,7 @@ const PhotosGrid = (props) => {
   return (
     <>
       <StatusBar />
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.baseContainer, styles.container]}>
         <FlatList
           data={photos}
           renderItem={({item}) => (
@@ -33,7 +33,9 @@ const PhotosGrid = (props) => {
             />
           )}
           numColumns={3}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item) => item.id}
+          onEndReachedThreshold={0.5}
+          onEndReached={onListEnd}
         />
       </SafeAreaView>
     </>
@@ -43,19 +45,19 @@ const PhotosGrid = (props) => {
 export default PhotosGrid;
 
 const styles = StyleSheet.create({
-  container: {
+  baseContainer: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'white',
+  },
+  container: {
+    backgroundColor: Colors.photoGridBackground,
   },
   imageThumbnail: {
     justifyContent: 'center',
     alignItems: 'center',
     height: 100,
   },
-  loading: {
-    flex: 1,
-    justifyContent: 'center',
+  loadingContainer: {
     alignContent: 'center',
   },
 });

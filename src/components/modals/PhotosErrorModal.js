@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Colors} from '../../styles';
 
 const PhotosErrorModal = () => {
-  const showModal = useSelector((state) => state.error);
+  const {isError, message} = useSelector((state) => state.error);
   const dispatch = useDispatch();
   const dismissModal = () => {
     dispatch({type: 'ERROR_DISMISSED'});
@@ -14,14 +14,14 @@ const PhotosErrorModal = () => {
     <Modal
       animationType="slide"
       transparent={true}
-      visible={showModal}
-      onRequestClose={() => {}}>
+      visible={isError}
+      onRequestClose={dismissModal}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text style={styles.modalText}>An error occured</Text>
+          <Text style={styles.modalText}>{message}</Text>
           <TouchableHighlight
             style={styles.dismissButton}
-            onPress={() => dismissModal()}>
+            onPress={dismissModal}>
             <Text style={styles.textStyle}>Ok</Text>
           </TouchableHighlight>
         </View>

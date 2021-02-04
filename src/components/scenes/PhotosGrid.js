@@ -1,21 +1,23 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  StatusBar,
-  FlatList,
-  ActivityIndicator,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, StatusBar, FlatList} from 'react-native';
 import {Colors} from '../../styles';
+import LoadingIndicator from '../LoadingIndicator';
 import PhotoThumbnail from '../PhotoThumbnail';
+import PhotoGridListFooter from '../PhotoGridListFooter';
 
 const PhotosGrid = (props) => {
-  const {photos, onPhotoThumbnailPress, onListEnd, loading} = props;
+  const {
+    photos,
+    onPhotoThumbnailPress,
+    onListEnd,
+    loading,
+    loadingMore,
+  } = props;
 
   if (loading) {
     return (
       <SafeAreaView style={[styles.baseContainer, styles.loadingContainer]}>
-        <ActivityIndicator size="large" color={Colors.loadingIndicator} />
+        <LoadingIndicator size="large" />
       </SafeAreaView>
     );
   }
@@ -36,6 +38,10 @@ const PhotosGrid = (props) => {
           keyExtractor={(item) => item.id}
           onEndReachedThreshold={0.5}
           onEndReached={onListEnd}
+          extraData={loadingMore}
+          ListFooterComponent={
+            <PhotoGridListFooter loadingMore={loadingMore} />
+          }
         />
       </SafeAreaView>
     </>

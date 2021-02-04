@@ -5,7 +5,7 @@ import PhotosGrid from '../components/scenes/PhotosGrid';
 const PhotosContainer = (props) => {
   const {navigation} = props;
   const dispatch = useDispatch();
-  const {photos, loading} = useSelector((state) => state.photos);
+  const {photos, loading, loadingMore} = useSelector((state) => state.photos);
   const requestPhotos = () => dispatch({type: 'PHOTOS_REQUESTED'});
   const requestMorePhotos = () => dispatch({type: 'MORE_PHOTOS_REQUESTED'});
 
@@ -28,6 +28,7 @@ const PhotosContainer = (props) => {
     <PhotosGrid
       photos={photos}
       loading={loading}
+      loadingMore={loadingMore}
       onPhotoThumbnailPress={onPhotoThumbnailPress}
       onListEnd={onListEnd}
     />

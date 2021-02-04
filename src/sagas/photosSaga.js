@@ -1,5 +1,6 @@
 import {call, put, delay, race, takeLeading, select} from 'redux-saga/effects';
 import {getPhotos} from '../api/requests';
+import {errorMessages} from '../constants/errorMessages';
 
 export default function* rootWatcherSaga() {
   yield takeLeading('PHOTOS_REQUESTED', photosLoadWorkerSaga);
@@ -19,9 +20,12 @@ function* photosLoadWorkerSaga(action) {
       data: {photos: payload, page: page + 1},
     });
   } catch (e) {
-    console.log('photos loading error: ', e.message);
-    yield put({type: 'PHOTOS_LOAD_ERROR'});
-    yield put({type: 'ERROR'});
+    yield call(
+      errorHandler,
+      action.type,
+      errorMessages.photosCouldNotLoad,
+      e.message,
+    );
   }
 }
 
@@ -39,8 +43,12 @@ function* photosLoadMoreWorkerSaga(action) {
       data: {photos: newPhotos, page: page + 1},
     });
   } catch (e) {
-    console.log('photos loading more error: ', e.message);
-    yield put({type: 'ERROR'});
+    yield call(
+      errorHandler,
+      action.type,
+      errorMessages.photosCouldNotLoad,
+      e.message,
+    );
   }
 }
 
@@ -54,4 +62,9 @@ function* fetchPhotos(page) {
     throw new Error('Timeout error');
   }
   return payload;
+}
+
+function* errorHandler(type, errorMessageToShow, errorMessage) {
+  console.log('Error in: ', type, errorMessage);
+  yield put({type: 'ERROR', data: {message: errorMessageToShow}});
 }

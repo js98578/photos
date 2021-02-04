@@ -1,12 +1,15 @@
-const initialState = false;
+const initialState = {
+  isError: false,
+  message: '',
+};
 
 const errorReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ERROR': {
-      return true;
+      return {isError: true, message: action.data.message};
     }
     case 'ERROR_DISMISSED': {
-      return false;
+      return {isError: false};
     }
     default: {
       return state;

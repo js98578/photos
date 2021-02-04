@@ -12,9 +12,16 @@ const photosReducer = (state = initialState, action) => {
         loading: true,
       };
     }
+    case 'PHOTOS_LOAD_MORE_START': {
+      return {
+        ...state,
+        loadingMore: true,
+      };
+    }
     case 'PHOTOS_LOADED': {
       return {
         loading: false,
+        loadingMore: false,
         photos: action.data.photos,
         page: action.data.page,
       };

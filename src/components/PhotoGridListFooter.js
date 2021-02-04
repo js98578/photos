@@ -1,10 +1,10 @@
 import React from 'react';
-import {StyleSheet, View, ActivityIndicator} from 'react-native';
-import {Colors} from '../styles';
+import {StyleSheet, View} from 'react-native';
+import LoadingIndicator from './LoadingIndicator';
 
 const PhotoGridListFooter = ({loadingMore}) => (
   <View style={styles.container}>
-    {loadingMore && <ActivityIndicator size="small" color={Colors.blue} />}
+    {loadingMore && <LoadingIndicator size="small" />}
   </View>
 );
 

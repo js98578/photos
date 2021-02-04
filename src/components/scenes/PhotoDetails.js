@@ -1,12 +1,6 @@
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Image,
-  Text,
-  SafeAreaView,
-  ActivityIndicator,
-} from 'react-native';
-import {Colors} from '../../styles';
+import {StyleSheet, Image, Text, SafeAreaView} from 'react-native';
+import LoadingIndicator from '../LoadingIndicator';
 
 const PhotoDetails = (props) => {
   const {route} = props;
@@ -17,9 +11,7 @@ const PhotoDetails = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text>{title}</Text>
-      {loading && (
-        <ActivityIndicator size="small" color={Colors.loadingIndicator} />
-      )}
+      {loading && <LoadingIndicator size="small" />}
       <Image
         style={styles.image}
         source={{uri: url}}

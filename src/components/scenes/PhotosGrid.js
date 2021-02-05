@@ -4,6 +4,7 @@ import {Colors} from '../../styles';
 import LoadingIndicator from '../LoadingIndicator';
 import PhotoThumbnail from '../PhotoThumbnail';
 import PhotoGridListFooter from '../PhotoGridListFooter';
+import { GridOptions } from '../../constants/grid';
 
 const PhotosGrid = (props) => {
   const {
@@ -12,6 +13,7 @@ const PhotosGrid = (props) => {
     onListEnd,
     loading,
     loadingMore,
+    thumbnailHeight,
   } = props;
 
   if (loading) {
@@ -31,14 +33,15 @@ const PhotosGrid = (props) => {
           renderItem={({item}) => (
             <PhotoThumbnail
               onPress={() => onPhotoThumbnailPress(item.title, item.url)}
-              thumbnailUrl={item.thumbnailUrl}
+              url={item.thumbnailUrl}
+              height={thumbnailHeight}
             />
           )}
-          numColumns={3}
+          numColumns={GridOptions.NUM_OF_COLUMNS}
           keyExtractor={(item) => item.id}
           onEndReachedThreshold={0.5}
           onEndReached={onListEnd}
-          extraData={loadingMore}
+          extraData={[loadingMore, thumbnailHeight]}
           ListFooterComponent={
             <PhotoGridListFooter loadingMore={loadingMore} />
           }

@@ -9,7 +9,7 @@ const errorReducer = (state = initialState, action) => {
       return {isError: true, message: action.data.message};
     }
     case 'ERROR_DISMISSED': {
-      return {isError: false};
+      return initialState;
     }
     default: {
       return state;

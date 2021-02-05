@@ -2,11 +2,12 @@ import React from 'react';
 import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
 
 const PhotoThumbnail = (props) => {
-  const {thumbnailUrl, onPress} = props;
+  const {url, onPress, height} = props;
+  const thumbnailStyle = StyleSheet.create({imageThumbnail: {height: height}});
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onPress}>
-        <Image style={styles.imageThumbnail} source={{uri: thumbnailUrl}} />
+        <Image style={thumbnailStyle.imageThumbnail} source={{uri: url}} />
       </TouchableOpacity>
     </View>
   );
@@ -19,10 +20,5 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     margin: 1,
-  },
-  imageThumbnail: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 100,
   },
 });

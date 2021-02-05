@@ -1,7 +1,7 @@
 import {call, put, delay, race, takeLeading, select} from 'redux-saga/effects';
 import {getPhotos} from '../api/requests';
 import {errorMessages} from '../constants/errorMessages';
-import { GridOptions } from '../constants/grid';
+import {GridOptions} from '../constants/grid';
 
 export default function* rootWatcherSaga() {
   yield takeLeading('PHOTOS_REQUESTED', photosLoadWorkerSaga);

@@ -4,7 +4,7 @@ import {Colors} from '../../styles';
 import LoadingIndicator from '../LoadingIndicator';
 import PhotoThumbnail from '../PhotoThumbnail';
 import PhotoGridListFooter from '../PhotoGridListFooter';
-import { GridOptions } from '../../constants/grid';
+import {GridOptions} from '../../constants/grid';
 
 const PhotosGrid = (props) => {
   const {
